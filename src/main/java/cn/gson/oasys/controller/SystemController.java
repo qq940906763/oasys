@@ -56,6 +56,9 @@ public class SystemController {
     @Value("${SSO_BASE_URL}")
     private String SSO_BASE_URL;
 
+    @Value("${DOMAIN_URL}")
+    private String DOMAIN_URL;
+
     @Autowired
     private SystemService systemService;
 
@@ -177,7 +180,7 @@ public class SystemController {
         String accesstoken=systemService.getToken();//获取token
         //封装数据,returnUrl为用户信息返回地址
         JSONObject jsoninfo = new JSONObject();
-        jsoninfo.put("returnUrl", "http://192.168.1.213:8088/loginCserver.jhtml");
+        jsoninfo.put("returnUrl", DOMAIN_URL+"/loginCserver.jhtml");
         jsoninfo.put("access_token", accesstoken);
         String infoString = "";
         try{
@@ -198,38 +201,61 @@ public class SystemController {
      */
     @GetMapping("/loginCserver.jhtml")
     public String loginCserver(String info, HttpSession session, HttpServletRequest req, ModelMap modelMap) throws UnknownHostException {
-        logger.info("loginCserver-模拟用户登录-请求入参："+info);
-        if (StringUtils.isEmpty(info)){
-            return "redirect:/login.jhtml";
-        }else{
-            JSONObject jsonget = JSONObject.parseObject(info);
-            String access_token=jsonget.getString("access_token");
-            //判断token是否改变
-            if(access_token==null||!access_token.equals(systemService.getToken())){
-                modelMap.put("msg","非法访问1");
-                return "error";
+        logger.info("/loginCserver.jhtml-用户登录-请求入参："+info);
+        try {
+            if (StringUtils.isEmpty(info)){
+                return "redirect:/login.jhtml";
+            }else {
+                JSONObject jsonget = JSONObject.parseObject(info);
+                String access_token = jsonget.getString("access_token");
+                //判断token是否改变
+                if (access_token == null || !access_token.equals(systemService.getToken())) {
+                    modelMap.put("msg", "非法访问,token不合法");
+                    return "error/error";
+                }
+                String username = jsonget.getString("username");
+                if (StringUtils.isEmpty(username)) {
+                    modelMap.put("msg", "非法访问用户");
+                    return "error/error";
+                }
+                User user = udao.findid(username);
+                if (user == null) {
+                    modelMap.put("msg", "未注册用户");
+                    //跳转页面
+                    return "error/error";
+                }
+                //系统有效性校验
+                JSONObject jsonObj = systemService.checkSysStatus(user.getDept().getSysId());
+                if(!jsonObj.getBoolean("success")){//禁止用户访问
+                    modelMap.put("msg",jsonObj.getString("resultMessage"));//仅为示例
+                    return "error/error";
+                }
+                Boolean usable = jsonObj.getBoolean("usable");
+                if(!usable){//禁止用户访问
+                    modelMap.put("msg","系统已过期，请续费");//仅为示例
+                    return "error/error";
+                }
+                //登录日志写入
+                try{
+                    systemService.writeLog(username,user.getDept().getSysId());
+                }catch (Exception e){
+                    e.printStackTrace();
+                    logger.info("/loginCserver.jhtml-用户登录-添加日志异常："+e);
+                }
+                session.setAttribute("userId", user.getUserId());
+                Browser browser = UserAgent.parseUserAgentString(req.getHeader("User-Agent")).getBrowser();
+                Version version = browser.getVersion(req.getHeader("User-Agent"));
+                String info2 = browser.getName() + "/" + version.getVersion();
+                String ip = InetAddress.getLocalHost().getHostAddress();
+                /*新增登录记录*/
+                ulService.save(new LoginRecord(ip, new Date(), info2, user));
+                logger.info("/loginCserver.jhtml-用户登录-正常-ip："+ip);
+                return "redirect:/index";
             }
-            String username=jsonget.getString("username");
-            if(StringUtils.isEmpty(username)){
-                modelMap.put("msg","非法访问2");
-                return "error";
-            }
-            User user = udao.findid(username);
-            if(user==null){
-                modelMap.put("msg","该用户未注册2");
-                //跳转页面
-                return "error";
-            }
-
-            session.setAttribute("userId", user.getUserId());
-            Browser browser = UserAgent.parseUserAgentString(req.getHeader("User-Agent")).getBrowser();
-            Version version = browser.getVersion(req.getHeader("User-Agent"));
-            String info2 = browser.getName() + "/" + version.getVersion();
-            String ip= InetAddress.getLocalHost().getHostAddress();
-            /*新增登录记录*/
-            ulService.save(new LoginRecord(ip, new Date(), info2, user));
-
-            return "redirect:/index";
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.info("/loginCserver.jhtml-用户登录-异常："+e);
         }
+        return "redirect:/index";
     }
 }

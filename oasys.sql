@@ -196,6 +196,7 @@ CREATE TABLE `aoa_dept` (
   `deptmanager` bigint(20) DEFAULT NULL,
   `end_time` datetime DEFAULT NULL,
   `start_time` datetime DEFAULT NULL,
+  `sys_id` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`dept_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -206,7 +207,7 @@ CREATE TABLE `aoa_dept` (
 
 LOCK TABLES `aoa_dept` WRITE;
 /*!40000 ALTER TABLE `aoa_dept` DISABLE KEYS */;
-INSERT INTO `aoa_dept` VALUES (1,'五楼',NULL,'总经办','888888888','hq@fjhirg.com',3,'2017-11-15 22:50:05','2017-11-07 22:50:11'),(2,'四楼',NULL,'研发部','66666666','as@fwgh',4,'2017-09-13 19:04:07','2010-05-23 00:00:00'),(3,'三楼',NULL,'财务部','233333','153@qq.com',5,'2017-09-19 16:46:26','2016-09-19 16:46:32'),(4,'六楼',NULL,'市场部','666888','aaluoxiang@foxmail.com',6,'2016-07-19 16:48:09','2014-09-19 16:48:20'),(5,'六楼',NULL,'人事部','33332222','103@qq.com',7,'2017-10-07 14:12:05','2017-05-09 14:12:14');
+INSERT INTO `aoa_dept` VALUES (1,'五楼',NULL,'总经办','888888888','hq@fjhirg.com',3,'2017-11-15 22:50:05','2017-11-07 22:50:11','c598d58f-8b33-48a0-864a-3cad753d1ca2'),(2,'四楼',NULL,'研发部','66666666','as@fwgh',4,'2017-09-13 19:04:07','2010-05-23 00:00:00','c598d58f-8b33-48a0-864a-3cad753d1ca2'),(3,'三楼',NULL,'财务部','233333','153@qq.com',5,'2017-09-19 16:46:26','2016-09-19 16:46:32','c598d58f-8b33-48a0-864a-3cad753d1ca2'),(4,'六楼',NULL,'市场部','666888','aaluoxiang@foxmail.com',6,'2016-07-19 16:48:09','2014-09-19 16:48:20','c598d58f-8b33-48a0-864a-3cad753d1ca2'),(5,'六楼',NULL,'人事部','33332222','103@qq.com',7,'2017-10-07 14:12:05','2017-05-09 14:12:14','c598d58f-8b33-48a0-864a-3cad753d1ca2');
 /*!40000 ALTER TABLE `aoa_dept` ENABLE KEYS */;
 UNLOCK TABLES;
 

@@ -50,7 +50,9 @@ public class SystemService {
             TOKEN_JSON.put("token",access_token);
             TOKEN_JSON.put("timeout",new Date().getTime()+7200000);//设置过期时间
         }
-        return TOKEN_JSON.getString("token");
+        token = TOKEN_JSON.getString("token");
+        logger.info("获取token结果："+token);
+        return token;
     }
 
     /**
@@ -91,16 +93,37 @@ public class SystemService {
     }
 
     /**
+     * 调用平台接口记录日志
+     * @param username
+     * @param sysId
+     */
+    public JSONObject writeLog(String username,String sysId) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("loginName",username);
+        jsonObject.put("sysid",sysId);
+        jsonObject.put("operation","查看");
+        jsonObject.put("object","进入系统");
+        jsonObject.put("data",username+"登录系统");
+        String token=this.getToken();
+        logger.info("调用平台接口记录日志入参："+jsonObject.toString());
+        String jsonStr = HttpRequestUtil.sendPost(BASE_URL +"/csaas/api/writeLog?access_token=" + token, jsonObject.toString());
+        logger.info("调用平台接口记录日志返参："+jsonStr);
+        JSONObject jsonObj = JSONObject.parseObject(jsonStr);
+        return jsonObj;
+    }
+
+    /**
      * 检查系统有效性
      * @return
      */
-    public String checkSysStatus(String sysId){
+    public JSONObject checkSysStatus(String sysId){
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("sysid",sysId);
         String token = this.getToken();
         logger.info("检查系统有效性入参："+jsonObject.toString());
         String jsonStr = HttpRequestUtil.sendPost(BASE_URL + "/csaas/api/getSystemInfo?access_token=" + token, jsonObject.toString());
         logger.info("检查系统有效性出参："+jsonStr);
-        return jsonStr;
+        JSONObject jsonObj = JSONObject.parseObject(jsonStr);
+        return jsonObj;
     }
 }
