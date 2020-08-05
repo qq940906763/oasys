@@ -9,7 +9,7 @@
 	<packaging>war</packaging>
 <!--	<packaging>war</packaging>-->
 
-	<name>oasys</name>
+	<name>ROOT</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -136,7 +136,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>oasys</finalName>
+		<finalName>ROOT</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
