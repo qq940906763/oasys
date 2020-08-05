@@ -53,6 +53,9 @@ public class SystemController {
     @Value("${BASE_URL}")
     private String BASE_URL;
 
+    @Value("${SSO_BASE_URL}")
+    private String SSO_BASE_URL;
+
     @Autowired
     private SystemService systemService;
 
@@ -183,8 +186,8 @@ public class SystemController {
             e.printStackTrace();
             logger.info("/login.jhtml-登录地址-编码异常："+e);
         }
-        logger.info("/login.jhtml-登录地址-响应结果："+BASE_URL+"/sso.web/loginCserver?info="+jsoninfo.toJSONString());
-        return "redirect:"+BASE_URL+"/sso.web/loginCserver?info="+infoString;
+        logger.info("/login.jhtml-登录地址-响应结果："+SSO_BASE_URL+"/sso.web/loginCserver?info="+jsoninfo.toJSONString());
+        return "redirect:"+SSO_BASE_URL+"/sso.web/loginCserver?info="+infoString;
     }
 
     /**
