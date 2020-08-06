@@ -172,8 +172,8 @@ public class UserController {
 				model.addAttribute("msg",result.getString("resultMessage"));//返回失败原因
 				return "/usermanage";
 			}else{
-                udao.save(user);
-            }
+				udao.save(user);
+			}
 		}else{
 			User user2 = udao.findOne(user.getUserId());
 			user2.setUserTel(user.getUserTel());
