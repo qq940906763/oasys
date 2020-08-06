@@ -164,14 +164,16 @@ public class UserController {
 			user.setRole(role);
 			user.setPosition(position);
 			user.setFatherId(dept.getDeptmanager());
-			udao.save(user);
+
 			//调用平台接口注册
 			JSONObject result = systemService.registerUser(user,tuser.getDept().getSysId());
 			if(!result.getBoolean("success")){
 				model.addAttribute("success",0);
 				model.addAttribute("msg",result.getString("resultMessage"));//返回失败原因
 				return "/usermanage";
-			}
+			}else{
+                udao.save(user);
+            }
 		}else{
 			User user2 = udao.findOne(user.getUserId());
 			user2.setUserTel(user.getUserTel());
