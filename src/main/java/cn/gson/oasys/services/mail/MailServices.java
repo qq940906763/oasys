@@ -103,9 +103,9 @@ public class MailServices {
 				Sort sort = new Sort(orders);
 				pa=new PageRequest(page, size,sort);
 				pagelist=mrdao.findmail(tu,false,pa);
-			}else if(!Objects.isNull(status)){
+			}else if(null!=(status)){
 				pagelist=mrdao.findmailbystatus(tu,status.getStatusId(),false,pa);
-			}else if(!Objects.isNull(type)){
+			}else if(null!=(type)){
 				pagelist=mrdao.findmailbytype(tu,type.getTypeId(),false,pa);
 			}else{
 				pagelist=mrdao.findmails(tu,false, val, pa);
@@ -116,9 +116,9 @@ public class MailServices {
 				Sort sort = new Sort(orders);
 				pa=new PageRequest(page, size,sort);
 				pagelist=mrdao.findmail(tu,true,pa);
-			}else if(!Objects.isNull(status)){
+			}else if(null!=(status)){
 				pagelist=mrdao.findmailbystatus(tu,status.getStatusId(),true,pa);
-			}else if(!Objects.isNull(type)){
+			}else if(null!=(type)){
 				pagelist=mrdao.findmailbytype(tu,type.getTypeId(),false,pa);
 			}else{
 				pagelist=mrdao.findmails(tu, true,val, pa);
@@ -169,9 +169,9 @@ public class MailServices {
 			Sort sort = new Sort(orders);
 			pa=new PageRequest(page, size,sort);
 			pagemail=imdao.findByPushAndMailUseridAndDelOrderByMailCreateTimeDesc(true,tu,false,pa);
-		}else if(!Objects.isNull(status)){
+		}else if(null!=(status)){
 			pagemail=imdao.findByMailUseridAndMailStatusidAndPushAndDelOrderByMailCreateTimeDesc(tu, status.getStatusId(),true,false, pa);
-		}else if(!Objects.isNull(type)){
+		}else if(null!=(type)){
 			pagemail=imdao.findByMailUseridAndMailTypeAndPushAndDelOrderByMailCreateTimeDesc(tu, type.getTypeId(),true,false, pa);
 		}else{
 			pagemail=imdao.findbymailUseridAndPushAndDel(tu,true,false,val,pa);
@@ -183,9 +183,9 @@ public class MailServices {
 				Sort sort = new Sort(orders);
 				pa=new PageRequest(page, size,sort);
 				pagemail=imdao.findByPushAndMailUseridAndDelOrderByMailCreateTimeDesc(false,tu,false,pa);
-			}else if(!Objects.isNull(status)){
+			}else if(null!=(status)){
 				pagemail=imdao.findByMailUseridAndMailStatusidAndPushAndDelOrderByMailCreateTimeDesc(tu, status.getStatusId(),false,false, pa);
-			}else if(!Objects.isNull(type)){
+			}else if(null!=(type)){
 				pagemail=imdao.findByMailUseridAndMailTypeAndPushAndDelOrderByMailCreateTimeDesc(tu, type.getTypeId(),true,false, pa);
 			}else{
 				pagemail=imdao.findbymailUseridAndPushAndDel(tu,false,false,val,pa);

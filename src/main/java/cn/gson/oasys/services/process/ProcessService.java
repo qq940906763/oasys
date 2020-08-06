@@ -179,10 +179,10 @@ public class ProcessService {
 			Sort sort = new Sort(orders);
 			pa=new PageRequest(page, size,sort);
 			pagelist=redao.findByUserIdOrderByStatusId(user,false, pa);
-		}else if(!Objects.isNull(u)){
+		}else if(null!=(u)){
 			pagelist=redao.findprocesslist(user,u,false,pa);
 			model.addAttribute("sort", "&val="+val);
-		}else if(!Objects.isNull(status)){
+		}else if(null!=(status)){
 			pagelist=redao.findbystatusprocesslist(user,status.getStatusId(),false,pa);
 			model.addAttribute("sort", "&val="+val);
 		}else{
@@ -259,7 +259,7 @@ public class ProcessService {
 			result.put("deptname", ddao.findname(process.getUserId().getDept().getDeptId()));
 		}
 		result.put("applytime", process.getApplyTime());
-		if(!Objects.isNull(process.getProFileid())){
+		if(null!=(process.getProFileid())){
 			result.put("file", process.getProFileid());
 		}else{
 			result.put("file", "file");

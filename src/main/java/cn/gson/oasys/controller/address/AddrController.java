@@ -167,7 +167,7 @@ public class AddrController {
 		Director d=addressDao.findOne(director);
 		User user=uDao.findOne(userId);
 		DirectorUser du=auDao.findByDirectorAndUser(d, user);
-		if(Objects.isNull(d) || Objects.isNull(du)){
+		if(null==(d) || null==(du)){
 			System.out.println("权限不匹配，不能操作");
 			return "redirect:/notlimit";
 		}
@@ -194,7 +194,7 @@ public class AddrController {
 		if(!StringUtils.isEmpty(did)){
 			Director director=addressDao.findOne(did);
 			System.out.println();
-			if(Objects.isNull(director)|| !Objects.equals(director.getMyuser().getUserId(), userId)){
+			if(null==(director)|| !Objects.equals(director.getMyuser().getUserId(), userId)){
 				System.out.println("权限不匹配，不能操作");
 				return "redirect:/notlimit";
 			}
@@ -407,7 +407,7 @@ public class AddrController {
 			User shareuser=uDao.findOne(directors[i]);
 			System.out.println("分享的用户:"+shareuser);
 			DirectorUser du=auDao.findByDirectorAndUser(director, shareuser);
-			if(Objects.isNull(du)){
+			if(null==(du)){
 				System.out.println("没找到该对象、进行保存保存");
 				DirectorUser dir=new DirectorUser();
 				dir.setUser(shareuser);

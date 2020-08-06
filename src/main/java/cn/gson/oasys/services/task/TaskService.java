@@ -74,7 +74,7 @@ public class TaskService {
 	//删除任务中间表
 	public int delete(Long pkid){
 		int i=0;
-		if (!Objects.isNull(pkid)){
+		if (null!=(pkid)){
 			tudao.delete(pkid);
 			i=1;
 		}
@@ -171,11 +171,11 @@ public class TaskService {
 				
 				tasklist=tdao.findTaskByTaskIds(taskid,pa);
 			}
-		} else if (!Objects.isNull(type)) {
+		} else if (null!=(type)) {
 
 			tasklist = tdao.findtaskTypeIdAndTaskId(type.getTypeId(), taskid,pa);
 				
-		} else if (!Objects.isNull(status)) {
+		} else if (null!=(status)) {
 			// Long转换成Integer
 			Integer statusid = Integer.parseInt(status.getStatusId().toString());
 			// 根据找出的taskid和状态id查找任务
@@ -184,7 +184,7 @@ public class TaskService {
 		} else if (("已取消").equals(title)) {
 			tasklist = tdao.findtaskCancelAndTaskId(true,  taskid,pa);
 			
-		} else if (!Objects.isNull(user)) {
+		} else if (null!=(user)) {
 			
 			tasklist = tdao.findtaskUsersIdAndTaskId(user, taskid,pa);
 			

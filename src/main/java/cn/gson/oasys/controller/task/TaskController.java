@@ -411,7 +411,7 @@ public class TaskController {
 		tasku.setPkId(pkid);
 		tasku.setTaskId(task);
 		tasku.setUserId(user);
-		if (!Objects.isNull(logger.getLoggerStatusid())) {
+		if (null!=(logger.getLoggerStatusid())) {
 
 			tasku.setStatusId(logger.getLoggerStatusid());
 		}

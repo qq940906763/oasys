@@ -263,7 +263,7 @@ public class ChatManageController {
 			Long disId=Long.parseLong(req.getParameter("id"));
 			Discuss discuss=discussDao.findOne(disId);
 			//回填投票的信息
-			if(!Objects.isNull(discuss.getVoteList())){
+			if(null!=(discuss.getVoteList())){
 				model.addAttribute("voteList", discuss.getVoteList());
 				List<VoteTitles> voteTitles=voteTitlesDao.findByVoteList(discuss.getVoteList());
 				model.addAttribute("voteTitles", voteTitles);

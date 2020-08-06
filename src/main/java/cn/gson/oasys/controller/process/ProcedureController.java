@@ -238,7 +238,7 @@ public class ProcedureController {
 		if(StringUtil.isEmpty(val)){
 			//空查询
 			pagelist=prodao.findByuserId(userId,pa);
-		}else if(!Objects.isNull(status)){
+		}else if(null!=(status)){
 			//根据状态和申请人查找流程
 			pagelist=prodao.findByuserIdandstatus(userId,status.getStatusId(),pa);
 			model.addAttribute("sort", "&val="+val);
@@ -325,7 +325,7 @@ public class ProcedureController {
 			if(("费用报销").equals(typename)){
 				Bursement bu=budao.findByProId(process);
 				User prove=udao.findOne(bu.getUsermoney().getUserId());//证明人
-			if(!Objects.isNull(bu.getOperation())){
+			if(null!=(bu.getOperation())){
 				audit=udao.findOne(bu.getOperation().getUserId());//最终审核人
 			}
 				List<DetailsBurse> detaillist=dedao.findByBurs(bu);
@@ -908,7 +908,7 @@ public class ProcedureController {
 			User lu=udao.findOne(userId);//审核人
 			Long proid=Long.parseLong(req.getParameter("id"));
 			Reviewed rev=redao.findByProIdAndUserId(proid, lu);
-			if(!Objects.isNull(rev)){
+			if(null!=(rev)){
 				rev.setDel(true);
 				redao.save(rev);
 			}else{

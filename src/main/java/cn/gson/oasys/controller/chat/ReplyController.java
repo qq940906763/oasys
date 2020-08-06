@@ -252,7 +252,7 @@ public class ReplyController {
             System.out.println("状态为进行中");
             model.addAttribute("dateType", 3);
         }
-        if (Objects.isNull(voteUserDao.findByVoteTitlesAndUser(voteTitle, user))) {
+        if (null==(voteUserDao.findByVoteTitlesAndUser(voteTitle, user))) {
             voteService.savaVoteTitleUser(voteTitleUser);
         } else {
             return "你已经投过票了";

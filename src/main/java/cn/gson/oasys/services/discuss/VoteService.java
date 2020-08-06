@@ -52,7 +52,7 @@ public class VoteService {
 	
 	public void voteServiceHandle(Model model, User user, Discuss discuss) {
 		
-		if(!Objects.isNull(discuss.getVoteList())){
+		if(null!=(discuss.getVoteList())){
 			List<VoteTitles> voteTitles=voteTitlesDao.findByVoteList(discuss.getVoteList());
 			List<Map<String, Object>> voteTitlesList=new ArrayList<>();
 			for (int i = 0; i < voteTitles.size(); i++) {
@@ -63,7 +63,7 @@ public class VoteService {
 				result.put("color", voteTitles.get(i).getColor());
 				result.put("count", voteUserDao.findByVoteTitles(voteTitles.get(i)).size());
 				result.put("countNum", voteUserDao.findByVoteId(voteTitles.get(i).getVoteList().getVoteId()).size());
-				result.put("contain",!Objects.isNull(voteUserDao.findByVoteTitlesAndUser(voteTitles.get(i), user)));
+				result.put("contain",null!=(voteUserDao.findByVoteTitlesAndUser(voteTitles.get(i), user)));
 				voteTitlesList.add(result);
 			}
 			VoteList vote=discuss.getVoteList();

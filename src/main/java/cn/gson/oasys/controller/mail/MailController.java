@@ -140,7 +140,7 @@ public class MailController {
 			while (st.hasMoreElements()) {
 				//找到该用户联系邮件的中间记录
 				Mailreciver	mailr=mrdao.findbyReciverIdAndmailId(user,Long.parseLong(st.nextToken()));
-				if(!Objects.isNull(mailr)){
+				if(null!=(mailr)){
 					//把删除的字段改为1
 					mailr.setDel(true);
 					mrdao.save(mailr);
@@ -156,7 +156,7 @@ public class MailController {
 			while (st.hasMoreElements()) {
 				//找到该邮件
 				Inmaillist  inmail=imdao.findByMailUseridAndMailId(user,Long.parseLong(st.nextToken()));
-				if(!Objects.isNull(inmail)){
+				if(null!=(inmail)){
 					//把删除的字段改为1
 					inmail.setDel(true);
 					imdao.save(inmail);
@@ -171,7 +171,7 @@ public class MailController {
 			while (st.hasMoreElements()) {
 				//找到该邮件
 				Inmaillist  inmail=imdao.findByMailUseridAndMailId(user,Long.parseLong(st.nextToken()));
-				if(!Objects.isNull(inmail)){
+				if(null!=(inmail)){
 					imdao.delete(inmail);
 				}else{
 					return "redirect:/notlimit";
@@ -190,7 +190,7 @@ public class MailController {
 				//判断中间表中关于这条邮件是否还有del字段为false的
 				if(dellist.contains(false)){
 					Mailreciver	mailr=mrdao.findbyReciverIdAndmailId(user,mailid);
-					if(!Objects.isNull(mailr)){
+					if(null!=(mailr)){
 						mrdao.delete(mailr);
 					}else{
 						return "redirect:/notlimit";
@@ -208,7 +208,7 @@ public class MailController {
 					}else{
 						//这条邮件的del字段为false，则删除中间表信息
 						Mailreciver	mailr=mrdao.findbyReciverIdAndmailId(user,mailid);
-						if(!Objects.isNull(mailr)){
+						if(null!=(mailr)){
 							mrdao.delete(mailr);
 						}else{
 							return "redirect:/notlimit";
@@ -220,7 +220,7 @@ public class MailController {
 			maillist=mservice.mail(pagelist);
 		}
 		
-		if(!Objects.isNull(pagelist)){
+		if(null!=(pagelist)){
 			model.addAttribute("page", pagelist);
 		}else{
 			model.addAttribute("page", pagemail);
@@ -362,7 +362,7 @@ public class MailController {
 				maillist=mservice.mail(pagelist);
 			}
 				
-			if(!Objects.isNull(pagelist)){
+			if(null!=(pagelist)){
 				model.addAttribute("page", pagelist);
 			}else{
 				model.addAttribute("page", pagemail);
@@ -407,7 +407,7 @@ public class MailController {
 			maillist=mservice.mail(pagelist);
 		}
 		
-		if(!Objects.isNull(pagelist)){
+		if(null!=(pagelist)){
 			model.addAttribute("page", pagelist);
 		}else{
 			model.addAttribute("page", pagemail);
@@ -528,7 +528,7 @@ public class MailController {
 			System.out.println("啊啊啊错误的信息——：" + list.get(0).toString());
 			
 		}else{
-			if(Objects.isNull(mail.getMailNumberId())){
+			if(null==(mail.getMailNumberId())){
 				mail.setMailUserId(tu);
 				mail.setMailCreateTime(new Date());
 				mndao.save(mail);
@@ -781,7 +781,7 @@ public class MailController {
 			
 		}
 		
-		if(!Objects.isNull(pagelist)){
+		if(null!=(pagelist)){
 			model.addAttribute("page", pagelist);
 		}else{
 			model.addAttribute("page", pagemail);
@@ -814,7 +814,7 @@ public class MailController {
 		//找到该邮件信息
 		Inmaillist mail=imdao.findOne(id);
 		String filetype=null;
-		if(!Objects.isNull(mail.getMailFileid())){
+		if(null!=(mail.getMailFileid())){
 			String filepath= mail.getMailFileid().getAttachmentPath();
 			System.out.println(filepath);
 				if(mail.getMailFileid().getAttachmentType().startsWith("image")){
@@ -856,7 +856,7 @@ public class MailController {
 		while (st.hasMoreElements()) {
 			//找到该用户联系邮件的中间记录
 			Mailreciver	mailr=mrdao.findbyReciverIdAndmailId(user,Long.parseLong(st.nextToken()));
-			if(!Objects.isNull(mailr)){
+			if(null!=(mailr)){
 				mailr.setDel(false);
 				mrdao.save(mailr);
 			}else{

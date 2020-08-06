@@ -166,7 +166,7 @@ public class InformManageController {
 		Long noticeId = Long.parseLong(req.getParameter("id"));
 		NoticeUserRelation relation = informrelationDao.findByUserIdAndNoticeId(uDao.findOne(userId),
 				informDao.findOne(noticeId));
-		if (Objects.isNull(relation)) {
+		if (null==(relation)) {
 			System.out.println("权限不匹配，不能删除");
 			return "redirect:/notlimit";
 		}

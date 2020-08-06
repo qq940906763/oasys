@@ -30,8 +30,9 @@ public final class VerifyCodeUtils {
 
 	static {
 		try {
-			random = SecureRandom.getInstanceStrong();
-		} catch (NoSuchAlgorithmException e) {
+			//random = SecureRandom.getInstanceStrong();
+			random = new Random();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
