@@ -4,4 +4,4 @@ RUN echo 'Asia/Shanghai' >/etc/timezone
 EXPOSE 8080
 VOLUME /tmp
 #ADD target/oasys-0.0.1-SNAPSHOT.jar oasys.jar
-CMD ["java", "-Xmx666m", "-jar", "oasys.jar"]
+CMD ["java", "-Xmx666m", "-jar", "oasys-0.0.1-SNAPSHOT.jar"]
