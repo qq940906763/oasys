@@ -6,9 +6,9 @@
 	<groupId>cn.gson</groupId>
 	<artifactId>oasys</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
-	<name>ROOT</name>
+	<name>oasys</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -135,7 +135,6 @@
 	</dependencies>
 
 	<build>
-		<finalName>ROOT</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

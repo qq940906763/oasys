@@ -1,7 +1,7 @@
-FROM  www.cserver.com.cn:5000/admin_sys/tomcat8.5.32:v2
-WORKDIR /usr/local/tomcat/webapps/
-MAINTAINER yarn
-COPY  target/ROOT.war /usr/local/tomcat/webapps/ROOT
-RUN  /bin/rm -rf  ROOT.war u/
+FROM primetoninc/jdk:1.8
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+RUN echo 'Asia/Shanghai' >/etc/timezone
 EXPOSE 8080
-CMD ["/usr/local/tomcat/bin/catalina.sh","run"]
+VOLUME /tmp
+ADD target/oasys-0.0.1-SNAPSHOT.jar oasys.jar
+CMD ["java", "-Xmx666m", "-jar", "oasys.jar"]
