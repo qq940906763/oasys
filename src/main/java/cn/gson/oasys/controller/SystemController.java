@@ -56,9 +56,6 @@ public class SystemController {
     @Value("${SSO_BASE_URL}")
     private String SSO_BASE_URL;
 
-    @Value("${DOMAIN_URL}")
-    private String DOMAIN_URL;
-
     @Autowired
     private SystemService systemService;
 
@@ -177,10 +174,11 @@ public class SystemController {
     @GetMapping("/login.jhtml")
     public String login(String info, HttpServletRequest request, ModelMap modelMapt){
         logger.info("/login.jhtml-登录地址-请求入参："+info);
+        String domainUrl = request.getRequestURL().toString().replace(request.getRequestURI(),"");
         String accesstoken=systemService.getToken();//获取token
         //封装数据,returnUrl为用户信息返回地址
         JSONObject jsoninfo = new JSONObject();
-        jsoninfo.put("returnUrl", DOMAIN_URL+"/loginCserver.jhtml");
+        jsoninfo.put("returnUrl", domainUrl+"/loginCserver.jhtml");
         jsoninfo.put("access_token", accesstoken);
         String infoString = "";
         try{
